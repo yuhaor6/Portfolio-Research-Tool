@@ -1,5 +1,3 @@
-"""api/server.py — FastAPI server exposing all PortfolioLab results as JSON."""
-
 from fastapi import FastAPI, HTTPException, Query, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse

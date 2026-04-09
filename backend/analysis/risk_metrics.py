@@ -1,5 +1,3 @@
-"""analysis/risk_metrics.py — Portfolio risk and performance metrics."""
-
 import numpy as np
 import pandas as pd
 import sys
@@ -16,21 +14,7 @@ def compute_all_metrics(
     horizon_years: int = 10,
     trading_periods: int = 12,
 ) -> dict:
-    """
-    Compute the full suite of risk and performance metrics from simulation output.
-
-    Parameters
-    ----------
-    paths : np.ndarray (n_paths, horizon_months) — real (inflation-adjusted) paths
-    terminal_wealth : np.ndarray (n_paths,) — real terminal wealth
-    goal : float — target terminal wealth in real terms
-    rf_rate : float — annualized risk-free rate
-    horizon_years : int
-
-    Returns
-    -------
-    dict of scalar metrics
-    """
+    """Full suite of risk/return metrics from simulation output (Sharpe, Sortino, VaR, etc)."""
     horizon_months = paths.shape[1]
     n_paths = paths.shape[0]
 

@@ -1,5 +1,3 @@
-"""analysis/sensitivity.py — Sensitivity analysis: estimation windows, crypto caps, rebalancing."""
-
 import numpy as np
 import pandas as pd
 import sys

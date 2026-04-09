@@ -1,5 +1,3 @@
-"""models/efficient_frontier.py — Mean-variance optimization and efficient frontier."""
-
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
@@ -25,24 +23,7 @@ def tangency_portfolio(
     crypto_indices: list[int] | None = None,
     max_crypto: float = 0.05,
 ) -> dict:
-    """
-    Maximize Sharpe ratio (tangency portfolio).
-
-    Parameters
-    ----------
-    mu : np.ndarray  shape (n,)  annualized expected returns
-    cov : np.ndarray shape (n,n) annualized covariance matrix
-    rf : float       annualized risk-free rate
-    bounds : list of (min, max) per asset. Defaults to (0, 1) — long-only.
-    crypto_indices : list of int
-        Column indices of crypto assets; capped at max_crypto total.
-    max_crypto : float
-        Maximum total allocation to crypto assets.
-
-    Returns
-    -------
-    dict with keys: weights, sharpe, ann_return, ann_vol
-    """
+    """Maximize Sharpe ratio; returns weights, sharpe, ann_return, ann_vol."""
     n = len(mu)
     if bounds is None:
         bounds = [(OPT_CONSTRAINTS["min_weight"], OPT_CONSTRAINTS["max_weight"])] * n
@@ -61,7 +42,6 @@ def tangency_portfolio(
     best_result = None
     best_sharpe = -np.inf
 
-    # Multiple random starts to avoid local minima
     rng = np.random.default_rng(42)
     for _ in range(20):
         w0 = rng.dirichlet(np.ones(n))

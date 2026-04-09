@@ -1,5 +1,3 @@
-"""data/crypto_fetcher.py — Crypto-specific data handling (BTC, ETH via yfinance)."""
-
 import os
 import pandas as pd
 import yfinance as yf

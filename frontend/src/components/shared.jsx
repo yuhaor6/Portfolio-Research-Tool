@@ -1,10 +1,5 @@
-// Shared reusable components
 import { useEffect, useRef, useState } from 'react'
 
-/**
- * Parses a display string like "12.34%" or "$1,234" into { num, prefix, suffix }.
- * Returns null if value is not numeric.
- */
 function parseNumericValue(val) {
   if (typeof val !== 'string' && typeof val !== 'number') return null
   const str = String(val).trim()
@@ -20,10 +15,6 @@ function formatNum(num, decimals) {
   return num.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
 }
 
-/**
- * Hook: smoothly animates a numeric value when it changes.
- * Returns the display string with identical prefix/suffix formatting.
- */
 function useAnimatedValue(value, duration = 600) {
   const parsed = parseNumericValue(value)
   const [display, setDisplay] = useState(value)
@@ -40,7 +31,7 @@ function useAnimatedValue(value, duration = 600) {
     const start = performance.now()
     function step(now) {
       const t = Math.min((now - start) / duration, 1)
-      const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t // ease-in-out quad
+      const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
       const current = from + (to - from) * ease
       setDisplay(`${parsed.prefix}${formatNum(current, parsed.decimals)}${parsed.suffix}`)
       if (t < 1) rafRef.current = requestAnimationFrame(step)

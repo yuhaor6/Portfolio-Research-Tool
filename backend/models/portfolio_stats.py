@@ -1,5 +1,3 @@
-"""models/portfolio_stats.py — Core portfolio statistics utilities."""
-
 import numpy as np
 import pandas as pd
 import sys
@@ -14,23 +12,7 @@ def compute_stats(
     rf_ticker: str = RF_TICKER,
     trading_periods: int = 12,
 ) -> pd.DataFrame:
-    """
-    Compute annualized return, volatility, and Sharpe for each asset.
-
-    Parameters
-    ----------
-    returns_df : pd.DataFrame
-        Monthly total returns. NaN allowed (asset not yet available).
-    rf_ticker : str
-        Column to use as risk-free rate.
-    trading_periods : int
-        Periods per year (12 for monthly).
-
-    Returns
-    -------
-    pd.DataFrame indexed by ticker with columns:
-        ann_return, ann_vol, sharpe, max_drawdown, skewness, kurtosis, n_months
-    """
+    """Compute annualized return, vol, Sharpe, drawdown, skewness, kurtosis per asset."""
     rf = returns_df[rf_ticker].mean() * trading_periods if rf_ticker in returns_df.columns else 0.0
 
     rows = []
@@ -73,14 +55,7 @@ def compute_correlation(returns_df: pd.DataFrame) -> pd.DataFrame:
 
 
 def max_drawdown(cumulative_returns: pd.Series) -> float:
-    """
-    Compute maximum drawdown from a series of cumulative returns.
-
-    Parameters
-    ----------
-    cumulative_returns : pd.Series
-        Running product of (1 + r), starting near 1.0.
-    """
+    """Compute max drawdown from a cumulative returns series."""
     running_max = cumulative_returns.cummax()
     drawdown = (cumulative_returns - running_max) / running_max
     return float(drawdown.min())

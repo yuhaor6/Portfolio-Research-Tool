@@ -1,5 +1,3 @@
-"""models/garch_model.py — GARCH(1,1) volatility modeling and DCC correlations."""
-
 import numpy as np
 import pandas as pd
 from arch import arch_model

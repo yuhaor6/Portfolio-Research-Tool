@@ -1,5 +1,3 @@
-"""client/cashflows.py — Income, expenses, loan amortization, and savings projection."""
-
 import pandas as pd
 import numpy as np
 import sys
@@ -10,22 +8,7 @@ from config import CLIENT_PROFILE, SIMULATION_CONFIG
 
 
 def generate_savings_schedule(profile: dict | None = None) -> pd.DataFrame:
-    """
-    Generate a year-by-year savings schedule for the client.
-
-    Accounts for:
-    - Salary growth
-    - Federal + state income tax (flat effective rate)
-    - Fixed living expenses (inflation-adjusted by 2.5% / year)
-    - Student loan minimum payments and accelerated payoff
-    - Emergency fund build-up in Year 1-2
-
-    Returns
-    -------
-    pd.DataFrame with columns:
-        year, gross_salary, net_salary, expenses, loan_payment,
-        emergency_contribution, investable_savings, cumulative_loan_balance
-    """
+    """Year-by-year savings projection accounting for salary growth, taxes, loans, and emergency fund."""
     if profile is None:
         profile = CLIENT_PROFILE
 

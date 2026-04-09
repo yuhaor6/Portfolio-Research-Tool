@@ -1,5 +1,3 @@
-"""simulation/parametric.py — Parametric Monte Carlo: normal, regime, GARCH-filtered."""
-
 import numpy as np
 import pandas as pd
 from scipy.stats import multivariate_normal

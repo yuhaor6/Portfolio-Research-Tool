@@ -1,5 +1,3 @@
-"""simulation/engine.py — Unified simulation interface."""
-
 import numpy as np
 import pandas as pd
 from dataclasses import dataclass, field

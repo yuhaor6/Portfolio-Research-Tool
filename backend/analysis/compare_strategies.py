@@ -1,5 +1,3 @@
-"""analysis/compare_strategies.py — Run and compare multiple portfolio strategies."""
-
 import numpy as np
 import pandas as pd
 import sys

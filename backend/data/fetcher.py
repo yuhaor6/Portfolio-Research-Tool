@@ -1,5 +1,3 @@
-"""data/fetcher.py — Download and cache monthly total returns for all assets."""
-
 import os
 import pandas as pd
 import yfinance as yf
@@ -39,7 +37,6 @@ def _download_monthly_returns(ticker: str, start: str, end: str) -> pd.Series:
     # yfinance ≥0.2 returns a DataFrame with ticker as column for single-ticker downloads
     if isinstance(close, pd.DataFrame):
         close = close.iloc[:, 0]
-    # Monthly resampling: last trading day of each month
     monthly = close.resample("ME").last()
     returns = monthly.pct_change().dropna()
     returns.name = ticker
@@ -53,28 +50,7 @@ def fetch_returns(
     use_cache: bool = True,
     force_refresh: bool = False,
 ) -> pd.DataFrame:
-    """
-    Fetch monthly total returns for a list of tickers.
-
-    Parameters
-    ----------
-    tickers : list of str, optional
-        Defaults to all 12 asset tickers from config.
-    start : str, optional
-        Start date (YYYY-MM-DD). Defaults to config DATE_RANGE['start'].
-    end : str, optional
-        End date (YYYY-MM-DD). Defaults to config DATE_RANGE['end'].
-    use_cache : bool
-        Load from CSV cache if available.
-    force_refresh : bool
-        Ignore cache and re-download.
-
-    Returns
-    -------
-    pd.DataFrame
-        Monthly returns, columns = tickers, index = month-end dates.
-        Forward-fills up to 3 consecutive NaN months per asset, then drops remaining.
-    """
+    """Fetch monthly total returns for a list of tickers, using CSV cache if available."""
     if tickers is None:
         tickers = list(ASSET_TICKERS.keys())
     if start is None:

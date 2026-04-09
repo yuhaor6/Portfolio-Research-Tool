@@ -1,5 +1,3 @@
-"""simulation/bootstrap.py — Block bootstrap Monte Carlo simulation engine."""
-
 import numpy as np
 import pandas as pd
 import sys
@@ -21,46 +19,7 @@ def block_bootstrap_mc(
     initial_wealth: float | None = None,
     seed: int = 42,
 ) -> dict:
-    """
-    Block-bootstrap Monte Carlo simulation.
-
-    Resamples contiguous `block_size`-month blocks of historical returns
-    to generate realistic paths that preserve autocorrelation and
-    cross-sectional dependence structure.
-
-    Parameters
-    ----------
-    returns_df : pd.DataFrame
-        Historical monthly returns. Rows with any NaN are dropped.
-    weights : np.ndarray, shape (n_assets,)
-        Portfolio weights (must sum to 1).
-    contributions : np.ndarray, shape (horizon_months,)
-        Monthly nominal investment contributions.
-    n_paths : int
-        Number of simulation paths.
-    block_size : int
-        Length of each resampled block in months.
-    inflation : float
-        Annual inflation rate for deflating terminal wealth to real terms.
-    horizon_years : int
-        Investment horizon.
-    rebalance : str
-        'none', 'quarterly', 'semi-annual', or 'annual'.
-    initial_wealth : float
-        Starting portfolio value.
-    seed : int
-        Random seed for reproducibility.
-
-    Returns
-    -------
-    dict with keys:
-        paths           : np.ndarray (n_paths, horizon_months) nominal wealth
-        real_paths      : np.ndarray (n_paths, horizon_months) inflation-adjusted
-        terminal_wealth : np.ndarray (n_paths,) nominal
-        real_terminal   : np.ndarray (n_paths,) real
-        weights_used    : np.ndarray
-        metadata        : dict
-    """
+    """Block-bootstrap MC: resamples contiguous blocks to preserve autocorrelation."""
     if n_paths is None:
         n_paths = SIMULATION_CONFIG["n_paths"]
     if initial_wealth is None:
@@ -90,7 +49,6 @@ def block_bootstrap_mc(
     rng = np.random.default_rng(seed)
     paths = np.zeros((n_paths, horizon_months), dtype=np.float64)
 
-    # Inflation deflator: monthly inflation
     monthly_inflation = (1 + inflation) ** (1 / 12)
     deflators = monthly_inflation ** np.arange(1, horizon_months + 1)
 

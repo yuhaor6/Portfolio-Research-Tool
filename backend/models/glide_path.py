@@ -1,5 +1,3 @@
-"""models/glide_path.py — Time-varying allocation (glide path) schedules."""
-
 import numpy as np
 import pandas as pd
 import sys

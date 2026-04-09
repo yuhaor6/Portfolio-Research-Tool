@@ -1,5 +1,3 @@
-"""models/factor_model.py — CAPM and Fama-French 5-factor regressions."""
-
 import io
 import zipfile
 import numpy as np

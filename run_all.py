@@ -1,5 +1,3 @@
-"""run_all.py — Master pipeline: fetch → fit models → simulate → analyze → export JSON."""
-
 import os
 import sys
 import json
@@ -42,9 +40,6 @@ def _json_default(obj):
     raise TypeError(f"Not serializable: {type(obj)}")
 
 
-# ---------------------------------------------------------------------------
-# Step 1: Fetch data
-# ---------------------------------------------------------------------------
 def step_fetch():
     print("\n=== Step 1: Fetch Data ===")
     from data.fetcher import fetch_returns
@@ -65,9 +60,6 @@ def step_fetch():
     return ret_full, ret_12
 
 
-# ---------------------------------------------------------------------------
-# Step 2: Client profile & cashflows
-# ---------------------------------------------------------------------------
 def step_cashflows():
     print("\n=== Step 2: Client Profile & Cashflows ===")
     from client.cashflows import generate_savings_schedule, monthly_contributions
@@ -85,9 +77,6 @@ def step_cashflows():
     return contrib, schedule
 
 
-# ---------------------------------------------------------------------------
-# Step 3: Asset statistics
-# ---------------------------------------------------------------------------
 def step_asset_stats(ret_12):
     print("\n=== Step 3: Asset Statistics ===")
     from models.portfolio_stats import compute_stats, compute_covariance, compute_correlation
@@ -111,9 +100,6 @@ def step_asset_stats(ret_12):
     return stats, cov, corr
 
 
-# ---------------------------------------------------------------------------
-# Step 4: Efficient frontiers
-# ---------------------------------------------------------------------------
 def step_efficient_frontiers(ret_12):
     print("\n=== Step 4: Efficient Frontiers ===")
     from models.portfolio_stats import compute_stats, compute_covariance
@@ -165,9 +151,6 @@ def step_efficient_frontiers(ret_12):
     return results
 
 
-# ---------------------------------------------------------------------------
-# Step 5: Regime model
-# ---------------------------------------------------------------------------
 def step_regime(ret_full):
     print("\n=== Step 5: Regime Model ===")
     from models.regime_model import fit_regime_model, get_regime_summary, regime_conditional_stats
@@ -223,9 +206,6 @@ def step_regime(ret_full):
     return summary, cond_stats
 
 
-# ---------------------------------------------------------------------------
-# Step 6: GARCH models
-# ---------------------------------------------------------------------------
 def step_garch(ret_full):
     print("\n=== Step 6: GARCH Models ===")
     from models.garch_model import fit_all_assets, conditional_volatility, forecast_vol, rolling_correlation_dcc_proxy
@@ -267,9 +247,6 @@ def step_garch(ret_full):
     return garch_results
 
 
-# ---------------------------------------------------------------------------
-# Step 7: Simulations
-# ---------------------------------------------------------------------------
 def step_simulations(ret_12, frontier_results, contrib, regime_summary, regime_cond_stats, garch_results):
     print("\n=== Step 7: Simulations ===")
     from simulation.engine import run_simulation
@@ -384,9 +361,6 @@ def step_simulations(ret_12, frontier_results, contrib, regime_summary, regime_c
               f"Median=${metrics['median_terminal']:,.0f}")
 
 
-# ---------------------------------------------------------------------------
-# Step 8: Strategy comparison
-# ---------------------------------------------------------------------------
 def step_comparison(ret_12, contrib):
     print("\n=== Step 8: Strategy Comparison ===")
     from analysis.compare_strategies import run_all_strategies
@@ -408,9 +382,6 @@ def step_comparison(ret_12, contrib):
     return df
 
 
-# ---------------------------------------------------------------------------
-# Step 9: Risk analysis (primary strategy)
-# ---------------------------------------------------------------------------
 def step_risk(ret_12, contrib, frontier_results):
     print("\n=== Step 9: Risk Analysis ===")
     from simulation.bootstrap import block_bootstrap_mc
@@ -448,9 +419,6 @@ def step_risk(ret_12, contrib, frontier_results):
     _save("risk_tangency_12.json", data)
 
 
-# ---------------------------------------------------------------------------
-# Step 10: Factor analysis
-# ---------------------------------------------------------------------------
 def step_factor(ret_12, frontier_results):
     print("\n=== Step 10: Factor Analysis ===")
     from models.factor_model import capm_regression, ff5_regression, fetch_ff5_factors, rolling_beta
@@ -484,9 +452,6 @@ def step_factor(ret_12, frontier_results):
           f"tstat={capm.get('alpha_tstat', 0):.2f}")
 
 
-# ---------------------------------------------------------------------------
-# Step 11: Sensitivity sweeps
-# ---------------------------------------------------------------------------
 def step_sensitivity(ret_12, contrib, frontier_results):
     print("\n=== Step 11: Sensitivity Sweeps ===")
     from analysis.sensitivity import sweep_estimation_window, sweep_crypto_cap, sweep_rebalancing
@@ -507,9 +472,6 @@ def step_sensitivity(ret_12, contrib, frontier_results):
     _save("sensitivity_rebalancing.json", df_rebal.reset_index().to_dict(orient="records"))
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 SIMULATION_CONFIG_PROD = 50_000
 
 
@@ -524,12 +486,12 @@ def main(n_paths_override: int | None = None):
 
     t_start = time.time()
 
-    ret_full, ret_12     = step_fetch()
-    contrib, schedule    = step_cashflows()
-    stats, cov, corr     = step_asset_stats(ret_12)
-    frontier_results     = step_efficient_frontiers(ret_12)
+    ret_full, ret_12 = step_fetch()
+    contrib, schedule = step_cashflows()
+    stats, cov, corr = step_asset_stats(ret_12)
+    frontier_results = step_efficient_frontiers(ret_12)
     regime_summary, cond = step_regime(ret_full)
-    garch_results        = step_garch(ret_full)
+    garch_results = step_garch(ret_full)
     step_simulations(ret_12, frontier_results, contrib, regime_summary, cond, garch_results)
     step_comparison(ret_12, contrib)
     step_risk(ret_12, contrib, frontier_results)

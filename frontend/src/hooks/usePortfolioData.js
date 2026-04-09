@@ -1,5 +1,3 @@
-// hooks/usePortfolioData.js — Fetch data from FastAPI backend
-
 import { useState, useEffect, useCallback } from 'react'
 
 const BASE_URL = '/api'

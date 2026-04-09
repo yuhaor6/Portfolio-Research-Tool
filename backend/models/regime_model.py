@@ -1,5 +1,3 @@
-"""models/regime_model.py — Hamilton 2-state Markov-switching regime model."""
-
 import numpy as np
 import pandas as pd
 from statsmodels.tsa.regime_switching.markov_regression import MarkovRegression
@@ -15,22 +13,7 @@ def fit_regime_model(
     rf_returns: pd.Series | None = None,
     n_regimes: int = 2,
 ) -> object:
-    """
-    Fit a Hamilton Markov-switching model on equity excess returns.
-
-    Parameters
-    ----------
-    equity_returns : pd.Series
-        Monthly total returns for the equity benchmark (e.g., IVV).
-    rf_returns : pd.Series, optional
-        Monthly risk-free returns (SHV). If provided, uses excess returns.
-    n_regimes : int
-        Number of regimes (fixed at 2: bull and bear).
-
-    Returns
-    -------
-    Fitted MarkovRegression result object.
-    """
+    """Fit a Hamilton Markov-switching model on equity excess returns."""
     if rf_returns is not None:
         # Align and compute excess returns
         aligned = pd.concat([equity_returns, rf_returns], axis=1).dropna()
@@ -49,17 +32,7 @@ def fit_regime_model(
 
 
 def get_regime_summary(result) -> dict:
-    """
-    Extract key statistics from a fitted regime model.
-
-    Returns dict with:
-        regime_means : list[float]
-        regime_vols  : list[float]  (annualized)
-        transition_matrix : np.ndarray (n_regimes × n_regimes)
-        smoothed_probs : pd.DataFrame (dates × regimes)
-        current_regime : int  (highest-prob regime at last date)
-        current_prob   : float
-    """
+    """Extract means, vols, transition matrix, smoothed probs, and current regime."""
     n = result.k_regimes
     regime_means = []
     regime_vols  = []

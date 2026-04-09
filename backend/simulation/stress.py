@@ -1,5 +1,3 @@
-"""simulation/stress.py — Stress scenario injection for simulation paths."""
-
 import numpy as np
 import pandas as pd
 
