@@ -4,8 +4,8 @@
 
 | Name | Contribution |
 |------|--------------|
-| Yuhao Ren | Python backend, quantitative models, FastAPI, data pipeline |
-| James Wu | React frontend (JavaScript/JSX) |
+| Yuhao Ren | Quantitative models, data pipeline |
+| James Wu | Python backend, FastAPI, React frontend (JavaScript/JSX) |
 
 ---
 
