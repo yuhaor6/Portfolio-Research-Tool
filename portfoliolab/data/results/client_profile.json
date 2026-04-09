@@ -1,0 +1,118 @@
+{
+  "profile": {
+    "starting_salary": 95000,
+    "salary_growth_rate": 0.04,
+    "tax_rate": 0.28,
+    "annual_expenses": 55000,
+    "loan_balance": 40000,
+    "loan_rate": 0.055,
+    "loan_min_payment": 500,
+    "emergency_fund_target": 20000,
+    "goal_amount": 1000000,
+    "investment_horizon_years": 10,
+    "risk_tolerance": "moderate",
+    "initial_investment": 10000
+  },
+  "savings_schedule": [
+    {
+      "year": 1,
+      "gross_salary": 95000.0,
+      "net_salary": 68400.0,
+      "expenses": 55000.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 6840.0,
+      "investable_savings": 560.0,
+      "cumulative_loan_balance": 36200.0
+    },
+    {
+      "year": 2,
+      "gross_salary": 98800.0,
+      "net_salary": 71136.0,
+      "expenses": 56375.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 7114.0,
+      "investable_savings": 1647.0,
+      "cumulative_loan_balance": 32191.0
+    },
+    {
+      "year": 3,
+      "gross_salary": 102752.0,
+      "net_salary": 73981.0,
+      "expenses": 57784.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 6046.0,
+      "investable_savings": 4151.0,
+      "cumulative_loan_balance": 27962.0
+    },
+    {
+      "year": 4,
+      "gross_salary": 106862.0,
+      "net_salary": 76941.0,
+      "expenses": 59229.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 0.0,
+      "investable_savings": 11712.0,
+      "cumulative_loan_balance": 23499.0
+    },
+    {
+      "year": 5,
+      "gross_salary": 111137.0,
+      "net_salary": 80018.0,
+      "expenses": 60710.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 0.0,
+      "investable_savings": 13309.0,
+      "cumulative_loan_balance": 18792.0
+    },
+    {
+      "year": 6,
+      "gross_salary": 115582.0,
+      "net_salary": 83219.0,
+      "expenses": 62227.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 0.0,
+      "investable_savings": 14992.0,
+      "cumulative_loan_balance": 13825.0
+    },
+    {
+      "year": 7,
+      "gross_salary": 120205.0,
+      "net_salary": 86548.0,
+      "expenses": 63783.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 0.0,
+      "investable_savings": 16765.0,
+      "cumulative_loan_balance": 8586.0
+    },
+    {
+      "year": 8,
+      "gross_salary": 125014.0,
+      "net_salary": 90010.0,
+      "expenses": 65378.0,
+      "loan_payment": 6000.0,
+      "emergency_contribution": 0.0,
+      "investable_savings": 18632.0,
+      "cumulative_loan_balance": 3058.0
+    },
+    {
+      "year": 9,
+      "gross_salary": 130014.0,
+      "net_salary": 93610.0,
+      "expenses": 67012.0,
+      "loan_payment": 3226.0,
+      "emergency_contribution": 0.0,
+      "investable_savings": 23372.0,
+      "cumulative_loan_balance": 0.0
+    },
+    {
+      "year": 10,
+      "gross_salary": 135215.0,
+      "net_salary": 97355.0,
+      "expenses": 68687.0,
+      "loan_payment": 0.0,
+      "emergency_contribution": 0.0,
+      "investable_savings": 28667.0,
+      "cumulative_loan_balance": 0.0
+    }
+  ]
+}

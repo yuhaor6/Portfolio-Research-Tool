@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    background-color: #0a0a0f;
+    color: #e0e0e8;
+  }
+
+  /* Subtle noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-border rounded-xl;
+    backdrop-filter: blur(12px);
+  }
+
+  .card-glow {
+    @apply card;
+    box-shadow: 0 0 0 1px rgba(0, 212, 255, 0.08), 0 4px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .metric-value {
+    @apply font-mono text-2xl font-semibold text-cyan;
+  }
+
+  .metric-label {
+    @apply font-sans text-xs uppercase tracking-widest text-muted;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-sans text-muted
+           transition-all duration-150 cursor-pointer hover:bg-surface hover:text-text;
+  }
+
+  .nav-item.active {
+    @apply bg-surface text-cyan border-l-2 border-cyan;
+  }
+
+  .badge-bull {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-mono
+           bg-green/10 text-green border border-green/20;
+  }
+
+  .badge-bear {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-mono
+           bg-red/10 text-red border border-red/20;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg bg-cyan text-bg font-sans font-medium text-sm
+           cursor-pointer transition-all duration-150 hover:bg-cyan/90 hover:shadow-lg
+           hover:shadow-cyan/20;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg border border-border text-muted font-sans font-medium
+           text-sm cursor-pointer transition-all duration-150 hover:border-cyan/40
+           hover:text-text;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb { background: #1e1e2a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2a2a3a; }
+
+/* Recharts customization */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #1e1e2a !important;
+}
+.recharts-tooltip-wrapper { outline: none; }
