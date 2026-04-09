@@ -1,5 +1,14 @@
 # PortfolioLab
 
+## Authors
+
+| Name | Contribution |
+|------|--------------|
+| Yuhao Ren | Python backend, quantitative models, FastAPI, data pipeline |
+| James Wu | React frontend (JavaScript/JSX) |
+
+---
+
 A full-stack quantitative finance platform for personal wealth planning. Combines mean-variance optimisation, Markov regime-switching, GARCH volatility modelling, and block-bootstrap Monte Carlo simulations into a single interactive dashboard.
 
 ---
